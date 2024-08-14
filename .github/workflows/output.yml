@@ -1,0 +1,38 @@
+name: Output
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 10 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository content
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9.13
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Execute main.py script
+        run: python app/main.py
+
+      - name: push to git
+        run: |
+          git clone https://lobiancovitor:${{ secrets.GITHUB_TOKEN }}@github.com/lobiancovitor/indexadores.git
+          rm -rf ./indexadores/data/* && cp -a ./data/. ./indexadores/data
+          cd indexadores
+          git config user.name "CI" && git config user.email "ci@github.com"
+          git add --all
+          git commit -m "CI output update" || echo "nothing to commit"
+          git push || echo "nothing to push"
