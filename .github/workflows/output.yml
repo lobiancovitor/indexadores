@@ -30,7 +30,7 @@ jobs:
       - name: push to git
         run: |
           git clone https://lobiancovitor:${{ secrets.GITHUB_TOKEN }}@github.com/lobiancovitor/indexadores.git
-          rm -rf ./indexadores/data/* && cp -a ./data/. ./indexadores/data
+          rm -rf ./atuas-indexadores/data/* && cp -a ./data/. ./atuas-indexadores/data
           cd indexadores
           git config user.name "CI" && git config user.email "ci@github.com"
           git add --all
