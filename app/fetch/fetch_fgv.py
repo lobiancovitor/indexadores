@@ -45,6 +45,7 @@ def fetch_igpm_fgv() -> pd.DataFrame:
         }
 
         # Convert date format
+        
         def converter_data(data):
             mes, ano = data.split("/")
             mes = meses[mes.lower()]
