@@ -4,19 +4,6 @@ from urls import IPCA_URL, INPC_URL
 
 
 def fetch_bcb_data(indicator: str) -> pd.DataFrame:
-    """
-    Fetch economic indicator data from the Brazilian Central Bank API and return as a pandas DataFrame.
-
-    Args:
-    indicator (str): The indicator to fetch. Must be either 'IPCA' or 'INPC'.
-
-    Returns:
-    pd.DataFrame: A DataFrame containing the last 12 months of data.
-
-    Raises:
-    ValueError: If an invalid indicator is provided.
-    requests.RequestException: If there's an error with the API request.
-    """
     if indicator.upper() == "IPCA":
         url = IPCA_URL
     elif indicator.upper() == "INPC":
