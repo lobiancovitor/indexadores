@@ -1,8 +1,10 @@
 import requests
 import pandas as pd
 from urls import IPCA_URL, INPC_URL
+from tenacity import retry, wait_fixed, stop_after_attempt
 
 
+@retry(wait=wait_fixed(5), stop=stop_after_attempt(3))
 def fetch_bcb_data(indicator: str) -> pd.DataFrame:
     if indicator.upper() == "IPCA":
         url = IPCA_URL
@@ -19,8 +21,8 @@ def fetch_bcb_data(indicator: str) -> pd.DataFrame:
         df["data"] = pd.to_datetime(df["data"], format="%d/%m/%Y")
         df["valor"] = df["valor"].astype(float)
         df = df.sort_values("data")
-        df = df.rename(columns={'valor': indicator})
-        
+        df = df.rename(columns={"valor": indicator})
+
         return df
     except requests.RequestException as e:
         print(f"Error accessing the API: {e}")
