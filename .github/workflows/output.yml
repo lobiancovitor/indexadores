@@ -25,7 +25,9 @@ jobs:
           python -m pip install -r requirements.txt
 
       - name: Clean data directory
-        run: rm -rf ./data/*
+        run: | 
+          rm -rf ./data/*
+          rm -rf ./tables/*
 
       - name: Execute main.py script
         run: python app/main.py

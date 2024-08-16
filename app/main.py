@@ -1,10 +1,10 @@
 from fetch.fetch_bcb import fetch_bcb_data
-from fetch.fetch_bi import process_tr_data, process_poupanca_data
+from fetch.fetch_bi import process_poupanca_data, process_tr_data
 from fetch.fetch_fgv import fetch_igpdi_fgv, fetch_igpm_fgv
 from fetch.fetch_fipe import fetch_ipc_fipe
-from urls import TR_URL, POUPANCA_URL
-
+from png_utils import save_all_indicators_as_png
 from save import save_indicator_data
+from urls import POUPANCA_URL, TR_URL
 
 
 def fetch_all_indicators():
@@ -24,6 +24,10 @@ def main():
         data_dict = fetch_all_indicators()
         save_indicator_data(data_dict)
         print("All indicator data fetched and saved successfully.")
+
+        save_all_indicators_as_png(data_dict)
+        print("All indicator tables saved as PNG files.")
+
     except Exception as e:
         print(f"An error occurred: {str(e)}")
 

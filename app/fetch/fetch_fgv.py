@@ -62,9 +62,8 @@ def fetch_igpm_fgv() -> pd.DataFrame:
             .str.replace(r"^\s*-\s*", "-", regex=True)
             .str.replace(",", ".")
         )
-
-        # Convert to numeric and percentage
-        # df['IGPM_FGV'] = pd.to_numeric(df['IGPM_FGV'], errors='coerce') / 100
+        
+        df['IGPM_FGV'] = pd.to_numeric(df['IGPM_FGV'], errors='coerce').apply(lambda x: f"{x:.2f}%" if pd.notnull(x) else x)
 
         # Sort, set index, and return last 12 months
         df["data"] = pd.to_datetime(df["data"])
@@ -137,8 +136,7 @@ def fetch_igpdi_fgv() -> pd.DataFrame:
             .str.replace(",", ".")
         )
 
-        # Convert to numeric and percentage
-        # df['IGPDI_FGV'] = pd.to_numeric(df['IGPDI_FGV'], errors='coerce') / 100
+        df['IGPDI_FGV'] = pd.to_numeric(df['IGPDI_FGV'], errors='coerce').apply(lambda x: f"{x:.2f}%" if pd.notnull(x) else x)
 
         # Sort, set index, and return last 12 months
         df["data"] = pd.to_datetime(df["data"])
