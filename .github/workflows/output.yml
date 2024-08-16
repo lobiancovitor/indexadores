@@ -27,7 +27,7 @@ jobs:
       - name: Clean data directory
         run: | 
           rm -rf ./data/*
-          rm -rf ./tables/*
+          
 
       - name: Execute main.py script
         run: python app/main.py
